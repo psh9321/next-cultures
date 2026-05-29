@@ -10,7 +10,6 @@ export const useUpdateUserHook = () => {
         mutationFn : API_CLIENT_UPDATE_USER,
         onSuccess(data, variables, onMutateResult, context) {
 
-            console.log("dd",data)
             // update({
 
             // })

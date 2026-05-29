@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   /* config options here */
   experimental : {
@@ -15,10 +17,11 @@ const nextConfig: NextConfig = {
         pathname: '/upload/**',
       },
       {
-        protocol : "http",
-        hostname : "localhost:2953",
+        protocol : isProduction ? "https" : "http",
+        hostname : isProduction ? process.env.BACKEND_HOST_NAME as string : "localhost",
+        ...(isProduction ? {} : { port : "2953" }),
         pathname: '/public/**',
-      }
+      },
     ]
   }
 };

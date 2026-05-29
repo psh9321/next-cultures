@@ -1,14 +1,12 @@
 import { BACKEND_API } from "@/shared/api/server.instance";
 
-export async function API_SERVER_FAVORITE_LIST(offset : number, limit=20) {
+export async function API_SERVER_FAVORITE_LIST() {
     try {
-        const result = await BACKEND_API.get("favorite/list", {
-            searchParams : {
-                offset,
-                limit
-            }
-        })
-        .json<API_SERVER_FAVORITE_LIST>();
+        const api = await BACKEND_API.get("favorite")
+        
+        if(!api.ok) throw api.statusText;
+
+        const result = await api.json() as API_FAVORITE_LIST;
 
         return result
     }

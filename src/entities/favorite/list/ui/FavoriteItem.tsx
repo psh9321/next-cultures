@@ -26,11 +26,15 @@ export const FavoriteItem = ({ item } : { item : FAVORITE_ITEM }) => {
             default: return ""
         }
     })();
-
     return (
-        <li className="block w-[calc(25%-15px)] max-w-[225px] min-w-[225px] shadow-[5px_5px_5px_rgba(0,0,0,0.8)] rounded-[10px] overflow-hidden">
-            <Link href={`/exhibition/${item?.["exhibitionSeq"]}`} className="block">
-                <div className="relative w-full h-[260px]">
+        <li className="block w-[calc(50%-15px)] shadow-[5px_5px_5px_rgba(0,0,0,0.8)] rounded-[10px] overflow-hidden
+        [@media(max-width:1010px)]:w-full
+        ">
+            <Link href={`/exhibition/${item?.["exhibitionSeq"]}`} className="flex">
+                <div className="relative block w-[200px] h-[250px] 
+                [@media(max-width:499px)]:w-[120px]
+                [@media(max-width:499px)]:h-[170px]
+                ">
                     <Image
                         className="w-full h-full"
                         fill
@@ -38,22 +42,20 @@ export const FavoriteItem = ({ item } : { item : FAVORITE_ITEM }) => {
                         sizes={"100vw"}
                         loading="eager"
                         src={SrcHttpToHttps(item?.["exhibitionImg"])}
-                        alt={`${title} 썸네일 이미지
-                        `}
+                        alt={`${title} 썸네일 이미지`}
                         onError={ImageError}
                     />
                 </div>
-                <dl className="block w-full p-[15px_20px] text-left text-basic-color bg-[#222226]
-                [&>dd.child]:inline-block
-                [&>dd.child]:p-[5px_10px]
-                [&>dd.child]:text-[0.8rem]
-                [&>dd.child]:font-bold
-                [&>dd.child]:rounded-[10px]
+                <dl className="block w-[calc(100%-200px)] p-[15px_20px] text-left text-basic-color bg-[#222226] 
+                [@media(max-width:1010px)]:w-[calc(100%-150px)]
+                [@media(max-width:499px)]:w-[calc(100%-120px)]
                 ">
-                    <dt className="h-[55px] mb-[10px] text-[1.15rem] overflow-hidden text-ellipsis [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">{title}</dt>
-                    <dd className="mb-[10px] text-[0.9rem]">{item?`${ExhibitionDateFormat(item?.["exhibitionStartDate"])} ~ ${ExhibitionDateFormat(item?.["exhibitionEndDate"])}` : ""}</dd>
-                    <dd className="child border text-[#7f7f7e]">{item?.["exhibitionArea"]}</dd>
-                    <dd className={`child ml-[10px] border text-[#fff] bg-${statusBgClass} border-${statusBgClass}`}>{currentExhibitionStatus}</dd>
+                    <dt className="h-[55px] mb-[10px] text-[1.15rem] break-keep overflow-hidden text-ellipsis [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]
+                    [@media(max-width:499px)]:h-[45px]
+                    [@media(max-width:499px)]:text-[0.9rem]
+                    ">{title}</dt>
+                    <dd className="mb-[10px] text-[0.9rem] [@media(max-width:499px)]:text-[0.7rem]">{item?`${ExhibitionDateFormat(item?.["exhibitionStartDate"])} ~ ${ExhibitionDateFormat(item?.["exhibitionEndDate"])}` : ""}</dd>
+                    <dd className={`inline-block p-[5px_10px] text-[0.8rem] font-bold rounded-[10px] border text-[#fff] bg-${statusBgClass} border-${statusBgClass}`}>{currentExhibitionStatus}</dd>
                 </dl>
             </Link>
         </li>

@@ -3,21 +3,19 @@
 import Link from "next/link";
 
 import { useExhibitionDetailHook } from "@/entities/exhibition/detail/hook/useExhibitionDetailHook"
-import { useExhibitionDetailTabMenuStore } from "@/entities/exhibition/detail/store/useExhibitionDetailTabMenuStore";
 import { ExhibitionDateFormat } from "@/shared/util/dateFormat";
 
 export const InfoTabContents = () => {
 
     const data = useExhibitionDetailHook();
 
-    const currentTab = useExhibitionDetailTabMenuStore(state => state.currentTab);
-
-    // if(currentTab !== "info") return <></>
-
     return (
         <article>
-            <h3 className="mb-[15px] text-[#fff] text-[1.4rem] font-bold">전시 정보</h3>
-            <ul className="[&>li]:p-[10px] [&>li]:border-t [&>li]:border-t-border-color [&>li]:border-t-[#f0f] [&>li>dl]:flex [&>li>dl]:text-basic-color [&>li>dl]:text-[1.1rem] [&>li>dl]:font-bold [&>li>dl>dt]:w-[100px] [&>li>dl>dt]:mr [&>li>dl>dt]:text-[#5D6268] [&>li>dl>dd]:w-[calc(100%-100px)] [&>li>dl>dd]:break-all">
+            <h3 className="mb-[15px] text-[#fff] text-[1.4rem] font-bold [@media(max-width:499px)]:text-[1rem]">전시 정보</h3>
+            <ul className="[&>li]:p-[10px] [&>li]:border-t [&>li]:border-t-border-color [&>li]:border-t-[#f0f] [&>li>dl]:flex [&>li>dl]:text-basic-color [&>li>dl]:text-[1.1rem] [&>li>dl]:font-bold [&>li>dl>dt]:w-[100px] [&>li>dl>dt]:text-[#5D6268] [&>li>dl>dd]:w-[calc(100%-100px)] [&>li>dl>dd]:break-all
+            
+            [@media(max-width:499px)]:[&>li>dl]:text-[0.8rem]
+            ">
                 <li>
                     <dl>
                         <dt>장소</dt>

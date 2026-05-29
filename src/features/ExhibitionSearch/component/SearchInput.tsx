@@ -82,9 +82,9 @@ export const SearchInput = () => {
     },[currentKeyword])
 
     return (
-        <div className="relative inline-flex items-center w-full h-[45px] p-[10px] text-[#7F8080] bg-[#242425] rounded-[10px]">
+        <div className="relative inline-flex items-center w-[450px] h-[45px] p-[10px] text-[#7F8080] bg-[#242425] rounded-[10px] [@media(max-width:800px)]:w-full">
             <Search size={25}/>
-            <input ref={inputRef} defaultValue={currentKeyword??""} onInput={OnInputCallback} type="text" className="w-full h-full ml-[5px] text-[1.3rem]  outline-none" placeholder="전시 제목, 장소 검색" />
+            <input ref={inputRef} defaultValue={currentKeyword??""} onInput={OnInputCallback} type="text" className="w-full h-full ml-[5px] text-[1.3rem] outline-none [@media(max-width:640px)]:text-[1rem]" placeholder="전시 제목, 장소 검색" />
 
             {searchParams.get("keyword") && <button onClick={InputClearCallback} className="ml-[10px]"><CircleX/></button>}
         </div>

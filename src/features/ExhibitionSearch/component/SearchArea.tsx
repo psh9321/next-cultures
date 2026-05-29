@@ -25,7 +25,7 @@ export const SearchArea = () => {
 
     const searchParams = useSearchParams();
 
-    const currentArea = searchParams.get(key)??"" as DISTRICT;
+    const currentArea = searchParams.get(key) as DISTRICT;
 
     function ToggleSelect() { SetIsSelect(!isSelect) }
 
@@ -65,13 +65,13 @@ export const SearchArea = () => {
     },[currentArea])
 
     return (
-        <div className="relative w-[110px] text-basic-color text-[0.9rem] font-bold">
-            <button onClick={ToggleSelect} className="w-full h-[35px] bg-[#1E222A] border-[2px] border-basic-color rounded-[10px]">검색 지역 선택</button>
+        <div className="relative w-[110px] text-basic-color text-[0.9rem] font-bold ">
+            <button onClick={ToggleSelect} className="w-full h-[35px] bg-[#1E222A] border-[2px] border-basic-color rounded-[10px]">{currentArea??"지역 전체"}</button>
 
             {
                 isSelect && 
                 <>
-                    <div className="absolute top-[0] left-[120px] w-full py-[10px] bg-[#1E222A] border-[2px] border-basic-color shadow-[3px_3px_3px_rgba(0,0,0,0.8)] rounded-[10px] z-4">
+                    <div className="absolute top-[0] left-[120px] w-full py-[10px] bg-[#1E222A] border-[2px] border-basic-color shadow-[3px_3px_3px_rgba(0,0,0,0.8)] rounded-[10px] z-4 [@media(max-width:640px)]:left-auto [@media(max-width:640px)]:right-0 [@media(max-width:480px)]:top-[45px] [@media(max-width:480px)]:left-0">
                         <ul ref={selectRef} className='h-[250px] overflow-y-auto'>
                             {
                                 areaData.map((el, i) => {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useInfiniteQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { API_CLIENT_FAVORITE_LIST } from "../api/api.client.favorite.list";
 import { useSessionHook } from "@/shared/hook/useSessionHook";
 
@@ -8,26 +8,17 @@ export const useFavoriteListHook = () => {
 
     const { isLogin } = useSessionHook()
 
-    const { data, isLoading, isFetching, isError, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage }  = useInfiniteQuery({
+    const { data, isLoading, isFetching, isError, isSuccess }  = useQuery({
         queryKey : ["favorite", "list"],
-        queryFn : async ({pageParam}) => {
+        queryFn : async () => {
+            const { data } = await API_CLIENT_FAVORITE_LIST() as API_FAVORITE_LIST;
 
-            return await API_CLIENT_FAVORITE_LIST(pageParam);
+            return data??[];
         },
-        initialPageParam : 0,
-        enabled : isLogin,
-        getNextPageParam : (lastPage) => {
-            if(!lastPage || lastPage instanceof Error) return undefined;
-            
-            const { page, isNextPage } = lastPage;
-            
-            if(!isNextPage) return undefined
-
-            return isNextPage ? page+1 : undefined
-        },
+        enabled : isLogin
     });
 
-    const favoriteTotal = data?.pages.at(-1)?.total??0;
+    const favoriteTotal = data?.length??0;
 
-    return { data, isLoading, isFetching, isError, isSuccess, fetchNextPage, hasNextPage, isFetchingNextPage, favoriteTotal } 
+    return { data, isLoading, isFetching, isError, isSuccess, favoriteTotal } 
 }

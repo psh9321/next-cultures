@@ -20,7 +20,7 @@ export const ReviewList = () => {
 
     return (
         <article className="relative min-h-[150px]">
-            <h3 className="mb-[15px] text-[#fff] text-[1.4rem] font-bold">해당 전시 등록된 후기 {reviewTotal > 0 && <span className="text-main-color text-[1rem]">( {reviewTotal} )</span> }</h3>
+            <h3 className="mb-[15px] text-[#fff] text-[1.4rem] font-bold [@media(max-width:499px)]:text-[1rem]">해당 전시 등록된 후기 {reviewTotal > 0 && <span className="text-main-color text-[1rem]">( {reviewTotal} )</span> }</h3>
 
             {
                 isFetching && 

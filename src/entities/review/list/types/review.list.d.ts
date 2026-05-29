@@ -4,6 +4,7 @@ declare global {
         _id : string,
         writerId: string,
         writerName : string,
+        writerIsProfileImg : boolean,
         seq: string,
         contents: string,
         createdAt: Date,

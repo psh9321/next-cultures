@@ -50,7 +50,7 @@ export const SearchType = ({ className } : COMPONENT_CLASS_NAME) => {
                 types.map((el, i) => {
                     return (
                         <li key={`서비스타입-${el["title"]}-${el["value"]}-${i}`}>
-                            <button className={`h-[35px] px-[10px] text-basic-color text-[0.9rem] font-bold border border-[2px] border-basic-color rounded-[10px] [&.active]:text-[#dedae6] [&.active]:bg-main-color [&.active]:border-main-color ${currentType ? currentType === el["value"] && "active" : i === 0 && "active"}`} onClick={() => SearchTypeCallback(el["value"] as SERVICE_TYPE)}>{el["title"]}</button>
+                            <button className={`h-[35px] px-[10px] text-basic-color text-[0.9rem] font-bold whitespace-nowrap border border-[2px] border-basic-color rounded-[10px] [&.active]:text-[#dedae6] [&.active]:bg-main-color [&.active]:border-main-color [@media(max-width:640px)]:text-[0.8rem] ${currentType ? currentType === el["value"] && "active" : i === 0 && "active"}`} onClick={() => SearchTypeCallback(el["value"] as SERVICE_TYPE)}>{el["title"]}</button>
                         </li>
                     )
                 })

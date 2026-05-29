@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { getCsrfToken } from "next-auth/react"
 
 import { UserKey } from 'lucide-react';
-import { GoogleLogo, KakaoLogo, NaverLogo } from "@/features/SideMenu/svg/SSOLogo";
+import { GoogleLogo, KakaoLogo, NaverLogo } from "@/shared/ui/svg/SSOLogo";
 
 const LoginRedirectPageView = () => {
 

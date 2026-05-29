@@ -2,8 +2,9 @@ import type { NextAuthOptions, User } from "next-auth";
 
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
+import GoogleProvider from "next-auth/providers/google";
 
-import { API_SERVER_POST_USERS } from "./entities/users/(post)/api/api.server.post.users";
+import { API_SERVER_POST_USERS } from "./entities/users/post/api/api.server.post.users";
 import { DateFormat } from "./shared/util/dateFormat";
 
 const maxAge = (60 * 60) * 4;
@@ -62,6 +63,25 @@ export const authOptions: NextAuthOptions = {
         } satisfies User;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+
+      async profile(profile) {
+
+        const userInfo = await API_SERVER_POST_USERS({userId : `${profile.email}-google`, userName : profile.name, socialType : "google"});
+
+        if(!userInfo) throw new Error("Failed to load Google user information.");
+
+          return {
+          id: userInfo.id,
+          name : userInfo.name,
+          type: "google",
+          isProfileImg : userInfo.isProfileImg,
+          createDate : DateFormat(userInfo.createdAt as Date,true),
+        } satisfies User;
+      }
+    })
   ],
   callbacks: {
     async signIn() {
@@ -76,6 +96,7 @@ export const authOptions: NextAuthOptions = {
         token["type"] = user["type"];
         token["createDate"] = user["createDate"];
         token["isProfileImg"] = user["isProfileImg"];
+        token["profileImgVersion"] = user["profileImgVersion"];
       }
 
       if(trigger === "update" && session) {
@@ -83,6 +104,7 @@ export const authOptions: NextAuthOptions = {
 
         token["name"] = updateUser.name ?? token["name"];
         token["isProfileImg"] = updateUser.isProfileImg ?? token["isProfileImg"];
+        token["profileImgVersion"] = updateUser.profileImgVersion ?? token["profileImgVersion"];
       }
 
       return token;
@@ -94,6 +116,7 @@ export const authOptions: NextAuthOptions = {
       session["user"]["type"] = token["type"];
       session["user"]["createDate"] = token["createDate"];
       session["user"]["isProfileImg"] = token["isProfileImg"];
+      session["user"]["profileImgVersion"] = token["profileImgVersion"];
 
       return session;
     },

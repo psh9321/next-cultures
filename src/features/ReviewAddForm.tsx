@@ -52,6 +52,8 @@ export const ReviewAddForm = () => {
 
         const end = textarea.value.length;
         textarea.setSelectionRange(end, end);
+
+        textarea.scrollIntoView({block : "start", behavior : "smooth"})
     },[])
 
     return (
@@ -63,7 +65,7 @@ export const ReviewAddForm = () => {
                 
                 <textarea ref={textareaRef} className="scrollbar w-full p-[10px_15px] text-[#fff] border border-dotted border-border-color border-[4px] rounded-[10px]"></textarea>
                 
-                <ul className="flex text-basic-color justify-end gap-[10px] w-full mt-[25px] pb-[10px] [&>li>button]:p-[5px_20px] [&>li>button]:border [&>li>button]:rounded-[5px]">
+                <ul className="flex text-basic-color justify-end gap-[10px] w-full mt-[25px] pb-[10px] [&>li>button]:p-[5px_20px] [&>li>button]:border [&>li>button]:rounded-[5px] [@media(max-width:499px)]:mt-[10px]">
                     <li><button onClick={AddCancelCallback}>취소</button></li>
                     <li><button onClick={AddSubmitCallback}>등록</button></li>
                 </ul>

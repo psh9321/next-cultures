@@ -8,7 +8,7 @@ import { useReviewAddStore } from "@/entities/review/add/store/useReviewAddStore
 
 const tabs: { title: string; value: TAB_MENU_STATUS }[] = [
     {title : "전시 정보", value : "info"},
-    {title : "모임", value : "metting"},
+    {title : "지도", value : "map"},
     {title : "후기", value : "review"},
 ];
 

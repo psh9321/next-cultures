@@ -7,13 +7,12 @@ import { SearchType } from "./component/SearchType";
 export const ExhibitionSearch = () => {
 
     return (
-        <article className="w-[450px]">
-            <h2 className="sr-only">전시 검색</h2>
+        <>
             <SearchInput/>
-            <div className="flex items-center gap-[10px] mt-[10px]">
+            <div className="flex items-center gap-[10px] mt-[10px] [@media(max-width:499px)]:flex-col [@media(max-width:499px)]:items-start">
                 <SearchType/>
                 <SearchArea/>
             </div>
-        </article>
+        </>
     )
 }

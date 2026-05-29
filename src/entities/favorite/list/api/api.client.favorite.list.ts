@@ -2,12 +2,10 @@
 
 import { CLIENT_API } from "@/shared/api/client.instance";
 
-export async function API_CLIENT_FAVORITE_LIST(offset : number, limit = 20) {
+export async function API_CLIENT_FAVORITE_LIST() {
     try {
-        const result = await CLIENT_API("favorite/list", {
-            json : { offset, limit }
-        })
-        .json<API_CLIENT_FAVORITE_LIST>();
+        const result = await CLIENT_API("favorite/list")
+        .json<API_FAVORITE_LIST>();
 
         return result
     }

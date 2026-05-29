@@ -1,13 +1,13 @@
 "use client"
 
-import { TicketPlus, TicketMinus } from "lucide-react"
+import { HeartPlus, HeartMinus } from "lucide-react"
 
 import { useSessionHook } from "@/shared/hook/useSessionHook"
 import { useToastHook } from "@/shared/hook/useToastHook"
 
 import { toastOpts } from "@/shared/util/toastOps";
 import { LogoutCallback } from "@/entities/auth/util/logout";
-import { useFavoriteToggleHook } from "../entities/favorite/(toggle)/hook/useFavoriteToggleHook";
+import { useFavoriteToggleHook } from "../entities/favorite/toggle/hook/useFavoriteToggleHook";
 
 interface BTN_TOGGLE_FAVORITE {
     exhibitionInfo : EXHIBITION_DETAIL_ITEM
@@ -50,9 +50,9 @@ export const BtnToggleFavorite = ({ exhibitionInfo } : BTN_TOGGLE_FAVORITE) => {
         <>
             <button onClick={ToggleFavoriteCallback} className={`flex items-center gap-[6px] p-[5px_10px] text-[1.1rem] border rounded-[10px] ${exhibitionInfo?.["isFavorite"] && "text-[#ff5c8a] border-[#ff5c8a]"}`}>
                 {
-                    exhibitionInfo?.["isFavorite"] ? <TicketMinus className="stroke-[#ff5c8a]"/> : <TicketPlus/>
+                    exhibitionInfo?.["isFavorite"] ? <HeartMinus className="stroke-[#ff5c8a]"/> : <HeartPlus/>
                 }
-                찜하기
+                좋아요
             </button>        
 
             <ToastAlert/>

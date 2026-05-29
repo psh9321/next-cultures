@@ -5,10 +5,7 @@ import { SetToken } from "@/shared/util/token";
 
 export async function API_SERVER_UPDATE_USER(param : USER_UPDATE_ITEM) {
     try {
-        const api = await BACKEND_API.patch(`users`, { json : {
-            updateName : param["name"],
-            updateIsProfileImg : param["isProfileImg"]
-        }});
+        const api = await BACKEND_API.patch(`users`, { json : param });
 
         if(!api.ok) throw api.statusText;
 

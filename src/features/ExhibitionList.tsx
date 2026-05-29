@@ -55,7 +55,7 @@ export const ExhibitionList = () => {
     },[isFetching])
     
     return (
-        <ol className="flex flex-wrap gap-[20px]">
+        <ol className="flex flex-wrap gap-[20px] [@media(max-width:920px)]:gap-[15px]">
             {
                 total === 0 ?
                 <ExhibitionEmpty/>

@@ -12,7 +12,7 @@ export const AddReviewFormBox = () => {
         <>
             { 
                 isAdd && <section className="mt-[20px]">
-                    <h3 className="inline-block mb-[10px] text-[#fff] text-[1.4rem] font-bold">후기 등록 하기</h3>
+                    <h3 className="inline-block mb-[10px] text-[#fff] text-[1.4rem] font-bold [@media(max-width:499px)]:text-[1.1rem]">후기 등록 하기</h3>
                     <ReviewAddForm/>
                 </section>
             }

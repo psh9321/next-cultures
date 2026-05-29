@@ -11,6 +11,7 @@ declare module "next-auth" {
             type : SocialType;
             createDate : string;
             isProfileImg : boolean;
+            profileImgVersion?: string;
         }
     }
 
@@ -20,6 +21,7 @@ declare module "next-auth" {
         type : SocialType;
         createDate : string
         isProfileImg : boolean;
+        profileImgVersion?: string;
     }
 }
 
@@ -30,6 +32,7 @@ declare module "next-auth/jwt" {
         type : SocialType;
         createDate : string;
         isProfileImg : boolean;
+        profileImgVersion?: string;
     }
 }
 

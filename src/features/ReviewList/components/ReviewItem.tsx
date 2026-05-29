@@ -4,7 +4,7 @@ import Image from "next/image"
 
 import { useRef, useState } from "react"
 
-import { NotebookPen, PencilOff } from 'lucide-react';
+import { CircleUserRound, NotebookPen, PencilOff } from 'lucide-react';
 
 import { TextArea } from "@/shared/ui/TextArea";
 
@@ -69,7 +69,12 @@ export const ReviewItem = ({ item, userId, isLogin } : REVIEW_ITEM) => {
             <li className="relative flex flex-wrap gap-[8px] py-[10px] text-basic-color font-bold [&:after]:content-[''][&:after]:absolute[&:after]:bottom-[0][&:after]:left-1/2[&:after]:-translate-1/2[&:after]:block[&:after]:w-[90%][&:after]:h-[2px][&:after]:bg-border-color
             [&:nth-child(n+2)]">
                 <div className="relative block size-[40px]">
-                    <Image className="rounded-[100%]" fill unoptimized sizes="100vw" src={"/profile.jpeg"} alt="fa" loading="eager" />
+                    
+                {
+                    item.writerIsProfileImg ? 
+                    <Image className="rounded-[100%]" src={`${process.env.NEXT_PUBLIC_FILE_DIRECTORY}/${item.writerId}/profile.jpeg`} alt={`${item.writerName} 프로필 이미지`} fill sizes="100vw" unoptimized loading="eager" /> :
+                    <CircleUserRound className="inline-block size-[36px] stroke-basic-color" size={36}/>
+                }
                 </div>
                 <dl className="w-[calc(100%-50px)] mb-[10px] text-[0.85rem]">
                     <dt>{item["writerName"]}</dt>

@@ -2,8 +2,8 @@
 
 import { useExhibitionDetailTabMenuStore } from "@/entities/exhibition/detail/store/useExhibitionDetailTabMenuStore";
 import { InfoTabContents } from "../features/ExhibitionTabContents/InfoTabContents";
-import { MettingTabContents } from "../features/ExhibitionTabContents/MettingTabContents";
 import { ReviewList } from "../features/ReviewList";
+import { MapTabContents } from "@/features/ExhibitionTabContents/MapTabContents";
 
 export const ExhibitionDetailTabBox = () => {
 
@@ -16,7 +16,7 @@ export const ExhibitionDetailTabBox = () => {
                 currentTab === "info" && <InfoTabContents />
             }
             {
-                currentTab === "metting" && <MettingTabContents />
+                 currentTab === "map" && <MapTabContents/>
             }
             {
                 currentTab === "review" && <ReviewList />
