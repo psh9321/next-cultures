@@ -20,7 +20,7 @@ const ExhibitionDetailPageView = () => {
             <h1 className="sr-only">전시 상세 정보</h1>
 
             <main className="w-[670px]">
-                <div className="sticky top-0 z-[2] bg-[#11151E] [@media(max-width:499px)]:relative">
+                <div className="sticky top-0 z-[1] bg-[#11151E] [@media(max-width:499px)]:relative">
                     <ExhibitionBannerInfo />
                     <ExhibitionDetailTabMenu/>
                     <AddReviewFormBox/>                     
