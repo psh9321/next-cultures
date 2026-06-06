@@ -93,7 +93,7 @@ export const BtnUserUtilFooter = () => {
             {
                 isMenu && 
                 <Portal>
-                    <div className='absolute bottom-[100px] left-1/2 -translate-x-1/2 w-[260px] p-[20px] text-basic-color bg-[#0e131d] border border-[2px] border-border-color rounded-[10px] shadow-[4px_4px_4px_#31333A] z-[9]'>
+                    <div className='fixed bottom-[100px] left-1/2 -translate-x-1/2 w-[260px] p-[20px] text-basic-color bg-[#0e131d] border border-[2px] border-border-color rounded-[10px] shadow-[4px_4px_4px_#31333A] z-[9]'>
                         {
                             isLogin ? 
                             <>
