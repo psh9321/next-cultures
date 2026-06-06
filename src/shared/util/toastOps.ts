@@ -30,6 +30,9 @@ export const toastOpts = {
     /** 알수없는 에러 */
     unknownError : new ToastOptsItem("알수없는 에러", "잠시후 다시 시도해주세요."),
 
+    /** 파일 용량 초과 */
+    fileSizeOver : new ToastOptsItem("파일 용량 초과", "5MB 이하 이미지만 업로드 가능합니다."),
+
     /** 토큰이 유효하지 않을때 or 만료됐을때 */
     unAuthorized : new ToastOptsItem("로그인 시간 만료", "다시 로그인 해주세요."),
 

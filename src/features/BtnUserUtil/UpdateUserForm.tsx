@@ -20,6 +20,8 @@ import { LogoutCallback } from "@/entities/auth/util/logout";
 import { useToastHook } from "@/shared/hook/useToastHook";
 import { toastOpts } from "@/shared/util/toastOps";
 
+const MAX_PROFILE_IMAGE_SIZE = 5 * 1024 * 1024;
+
 interface UPDATE_USER_FORM {
     cancelCallback : () => void
 }
@@ -46,11 +48,20 @@ export const UpdateUserForm = ({ cancelCallback } : UPDATE_USER_FORM) => {
 
     const { isDirty, errors } = useFormState({ control });
 
+    function IsFileSizeOver(file : FormDataEntryValue | null) {
+        return file instanceof File && file.size > MAX_PROFILE_IMAGE_SIZE;
+    }
+
     function SetProfileImgCallback(e : React.ChangeEvent<HTMLInputElement>) {
 
         const item = e.target.files?.[0];
 
         if(!item) return;
+
+        if(IsFileSizeOver(item)) {
+            e.target.value = "";
+            return InitAlert(toastOpts["fileSizeOver"]);
+        }
 
         const data = new FormData();
 
@@ -74,6 +85,10 @@ export const UpdateUserForm = ({ cancelCallback } : UPDATE_USER_FORM) => {
         if(!isDirty) return
 
         if(getValues("formFile")) {
+            const file = getValues("formFile")?.get("item") ?? null;
+
+            if(IsFileSizeOver(file)) return InitAlert(toastOpts["fileSizeOver"]);
+
             await API_CLIENT_USER_PROFILE(getValues("formFile") as FormData);
         }
 
