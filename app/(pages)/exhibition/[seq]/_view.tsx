@@ -10,7 +10,6 @@ import { ExhibitionBannerInfo } from "@/features/ExhibitionBannerInfo";
 
 import { AddReviewFormBox } from "@/features/AddReviewFormBox";
 
-
 const ExhibitionDetailPageView = () => {
 
     const isResize = useResizeHook(1050);

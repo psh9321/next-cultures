@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 const PopupCallbackPageView = () => {
-
+    
     useEffect(() => {
         if (window.opener) {
             window.opener.postMessage({ type: "SOCIAL_LOGIN_SUCCESS" }, window.location.origin);
