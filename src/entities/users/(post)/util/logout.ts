@@ -1,7 +1,12 @@
 import { signOut } from 'next-auth/react';
-import { DeleteToken } from '@/shared/lib/token';
+
+import { DeleteCookies } from '@/shared/lib/cookies';
 
 export async function LogoutCallback() {
-    await DeleteToken();
-    signOut();
+    try {
+        await DeleteCookies();
+    }
+    finally {
+        signOut();
+    }
 }

@@ -2,7 +2,7 @@
 
 import { create } from 'zustand'
 
-type LOADING_STATUS = "" | "fetch" | "search" | "route";
+type LOADING_STATUS = "" | "fetch" | "search" | "route" | "favorite";
 
 interface LOADING_STORE {
     loadingStatus : LOADING_STATUS,

@@ -17,7 +17,7 @@ export const useFavoriteToggleHook = (seq : string | number) => {
         onSuccess(data, variables, onMutateResult, context) {
             
             const newData = {...queryData};
-            console.log(data, "###")
+
             newData["isFavorite"] = data?.["data"]?.["toggleStatus"]??false;
 
             queryClient.setQueryData(queryKey, newData);

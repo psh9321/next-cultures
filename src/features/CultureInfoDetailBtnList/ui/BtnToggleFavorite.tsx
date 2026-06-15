@@ -1,12 +1,17 @@
 "use client"
 
+import { useState } from 'react';
+
+import { TicketPlus, TicketMinus } from 'lucide-react';
+
 import { useCultureInfoDetailHook } from '@/entities/culture/detail/hook/useCultureInfoDetailHook';
 import { useFavoriteToggleHook } from '@/entities/favorite/toggle/hook/useFavoriteToggleHook';
-import { LogoutCallback } from '@/entities/users/(post)/util/logout';
+import { useSessionHook } from '@/entities/users/(post)/hook/useSessionHook';
 import { useToastHook } from '@/shared/hook/useToastHook';
+
+import { LogoutCallback } from '@/entities/users/(post)/util/logout';
+
 import { toastOpts } from '@/shared/util/toastOps';
-import { TicketPlus, TicketMinus } from 'lucide-react';
-import { useState } from 'react';
 
 export const BtnToggleFavorite = () => {
 
@@ -14,12 +19,17 @@ export const BtnToggleFavorite = () => {
 
     const { InitAlert, ToastAlert } = useToastHook(); 
 
+    const { isLogin } = useSessionHook();
+
     const { mutateAsync } = useFavoriteToggleHook(seq);
 
     const [ activeFavorite, SetActiveFavorite ] = useState<boolean>(isFavorite);
 
     async function OnClickToggleCallback() {
         try {
+
+            if(!isLogin) return InitAlert(toastOpts["unLogin"]);
+
             const { resultCode, data } = await mutateAsync({
                 title,
                 startDate,
@@ -29,7 +39,9 @@ export const BtnToggleFavorite = () => {
                 area : area as DISTRICT,
             });
 
-            if(resultCode === -999) return InitAlert(toastOpts["unLogin"]);
+            if(resultCode === -999) return InitAlert(toastOpts["unLogin"], async () => {
+                if(isLogin) await LogoutCallback();
+            });
 
             SetActiveFavorite(data?.toggleStatus as boolean);
         }

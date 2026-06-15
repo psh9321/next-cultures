@@ -16,7 +16,6 @@ import { LoadingView } from "@/widgets/LoadingView";
 
 import { authOptions } from "@/auth";
 import { KakaoMapInitializer } from "@/script/KakaoMapInitializer";
-import { PrefetchFavoriteList } from "@/entities/favorite/list/prefetch/prefetch.favorite.list";
 import { Header } from "@/widgets/Header";
 
 export const metadata : Metadata = {
@@ -51,13 +50,6 @@ export const metadata : Metadata = {
 const RootLayout = async ({ children }: LAYOUT_CHILD) => {
     
     const session = await getServerSession(authOptions);
-    const queryServer = new QueryClient();
-
-    if(session) {
-        await PrefetchFavoriteList(queryServer);
-    }
-
-    
     return (
         <html lang="ko">
             <body suppressHydrationWarning>

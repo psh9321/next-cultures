@@ -6,19 +6,25 @@ import { useSessionHook } from "@/entities/users/(post)/hook/useSessionHook";
 
 export const useFavoriteListHook = () => {
 
-    const { isLogin } = useSessionHook()
+    const { isLogin } = useSessionHook();
 
     const { data, isLoading, isFetching, isError, isSuccess }  = useQuery({
         queryKey : ["favorite", "list"],
         queryFn : async () => {
-            const { data } = await API_CLIENT_FAVORITE_LIST() as API_FAVORITE_LIST;
+            const result = await API_CLIENT_FAVORITE_LIST() as API_FAVORITE_LIST;
 
-            return data??[];
+            return result;
         },
         enabled : isLogin
     });
 
-    const favoriteTotal = data?.length??0;
-
-    return { data, isLoading, isFetching, isError, isSuccess, favoriteTotal } 
+    return { 
+        isUnauthorized : data?.resultCode === -999,
+        data : data?.resultCode === 200 ? data.data : [], 
+        isLoading, 
+        isFetching, 
+        isError, 
+        isSuccess, 
+        favoriteTotal : data?.resultCode === 200 ? data.data?.length : 0
+    } 
 }

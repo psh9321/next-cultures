@@ -7,9 +7,9 @@ export async function API_CLIENT_CULTURE_INFO_MAP(params : API_CLIENT_CULTURE_IN
         const result = await CLIENT_API("culture/map", {
             json : params
         })
-        .json<API_CLIENT_CULTURE_INFO_MAP>();
+        .json<API_CULTURE_INFO_MAP>();
 
-        return result;
+        return result["data"];
     }
     catch(err) { 
         console.log(err);

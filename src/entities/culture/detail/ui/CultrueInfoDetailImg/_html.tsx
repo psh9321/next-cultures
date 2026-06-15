@@ -6,25 +6,16 @@ export const ImgBox = styled.div`
     flex-shrink: 0;
     position : relative;
     display : block;
-    width : 450px;
-    height : 550px;
+    width : 350px;
+    height : 450px;
     border-radius : 10px;
     overflow : hidden;
 
-    @media all and (max-width : 1050px) {
-        width : 42vw;
-        height : 50vw
+    @media all and (max-width: 870px) {
+        width : 100%;    
+        height : 100vw;
+        margin :0 auto 40px;
+        
     }
 
-    @media all and (max-width : 850px) {
-        position : sticky;
-        top : 55px;
-        width : 100%;
-        height : 500px;
-        flex-shrink: 0;
-    }
-
-    @media all and (max-width : 499px) {
-        height : 100vw
-    }
 `

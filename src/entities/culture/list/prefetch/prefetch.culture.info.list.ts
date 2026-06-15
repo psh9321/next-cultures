@@ -6,7 +6,6 @@ export async function PrefetchCultureInfoList(queryServer : QueryClient, querys 
     searchArea?: DISTRICT
     searchType?: SERVICE_TYPE
 } ) {
-
     await queryServer.prefetchInfiniteQuery({
         queryKey : ["cultureInfo", "list" ,querys],
         queryFn : async () => {
@@ -20,12 +19,17 @@ export async function PrefetchCultureInfoList(queryServer : QueryClient, querys 
             if(querys["searchKeyword"]) params["keyword"] = querys["searchKeyword"];
             if(querys["searchArea"]) params["area"] = querys["searchArea"];
 
-            const result = await API_SERVER_CULTURE_INFO_LIST(params) as API_SERVER_CULTURE_LIST;
+            const result = await (await API_SERVER_CULTURE_INFO_LIST(params)).json<API_CULTURE_INFO_LIST>();
 
-            return result?.["data"] as API_CLIENT_CULTURE_LIST??null;
+            if(result["resultCode"] === 200) {
+                return result["data"] as INFINITY_RESPONSE_ITEM<CULTURE_ITEM[]>
+            }
+            else {
+                return null
+            }
         },
         initialPageParam : 1,
-        getNextPageParam : (lastPage : API_CLIENT_CULTURE_LIST) => {
+        getNextPageParam : (lastPage : INFINITY_RESPONSE_ITEM<CULTURE_ITEM[]> | null) => {
             if(!lastPage || lastPage instanceof Error) return undefined;
             
             const { page, isNextPage } = lastPage;

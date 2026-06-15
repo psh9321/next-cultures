@@ -14,9 +14,7 @@ declare global {
         params : Promise<{seq : string}>
     }
 
-    type API_SERVER_CULTURE_INFO_DETAIL = RESPONSE_MODEL<CULTURE_DETAIL_ITEM>
-
-    type API_CLIENT_CULTURE_INFO_DETAIL = CULTURE_DETAIL_ITEM;
+    type API_CULTURE_INFO_DETAIL = RESPONSE_MODEL<CULTURE_DETAIL_ITEM>
 }
 
 export {}

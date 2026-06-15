@@ -103,7 +103,7 @@ export const HeaderSearchWrapper = styled.div`
     background-color : #444444;
     border-radius : 10px;
     box-shadow : 5px 5px 5px rgba(0,0,0,0.8);
-    z-index : 3;
+    z-index : 6;
 
     &:before {
         content : "";

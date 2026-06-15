@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { API_SERVER_CULTURE_INFO_LIST } from '@/entities/culture/list/api/api.server.culture.info.list';
-import { ApiFail, ApiSuccess } from '@/shared/model/response';
+import { SetCookies } from '@/shared/lib/cookies';
 
 export async function POST(req : NextRequest) {
     try {
@@ -19,11 +19,11 @@ export async function POST(req : NextRequest) {
 
         const response = await API_SERVER_CULTURE_INFO_LIST(querys);
 
-        if(response["resultCode"] !== 200) {
-            return NextResponse.json(response, { status : 200 });
-        }
+        await SetCookies(response.headers);
 
-        return NextResponse.json(response["data"], { status : 200 });
+        const result = await response.json<API_CULTURE_INFO_LIST>();
+
+        return NextResponse.json(result, { status : 200 });
     }
     catch(err) {
         return NextResponse.json(err, {status : 500});

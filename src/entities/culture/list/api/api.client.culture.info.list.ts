@@ -7,9 +7,14 @@ export async function API_CLIENT_CULTURE_INFO_LIST(param : API_CLIENT_CULTURE_IN
         const result = await CLIENT_API("culture/list", {
             json : param
         })
-        .json<API_CLIENT_CULTURE_LIST>();
+        .json<API_CULTURE_INFO_LIST>();
 
-        return result
+        if(result["resultCode"] === 200) {
+            return result["data"]
+        }
+        else {
+            return null;
+        }
     }
     catch(err) { 
         console.log(err);

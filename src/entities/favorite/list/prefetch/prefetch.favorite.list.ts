@@ -6,10 +6,20 @@ export async function PrefetchFavoriteList(queryServer : QueryClient) {
     await queryServer.prefetchQuery({
         queryKey : ["favorite", "list"],
         queryFn : async () => {            
+            try {
+                const result = await (await API_SERVER_FAVORITE_LIST()).json<API_FAVORITE_LIST>();
 
-            const result = await API_SERVER_FAVORITE_LIST() as API_FAVORITE_LIST
-
-            return result["data"]??[];
+                if(result["resultCode"] === 200) {
+                    return result["data"];
+                }
+                else {
+                    return []
+                }
+            }
+            catch(err) {
+                console.log(err);
+                return []
+            }
         },
     })
 }

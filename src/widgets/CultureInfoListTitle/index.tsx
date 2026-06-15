@@ -2,15 +2,15 @@
 
 import { CultureInfoTitle } from "@/entities/culture/list/ui/CultureInfoTitle"
 
-import { TitleWrapper } from "./_html"
+import { TitleBox } from "./_html"
 
 export const CultureInfoListTitle = () => {
 
     return (
         <>
-            <TitleWrapper>
+            <TitleBox>
                 <CultureInfoTitle/>
-            </TitleWrapper>
+            </TitleBox>
         </>
     )
 }

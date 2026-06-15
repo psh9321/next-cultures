@@ -1,23 +1,26 @@
 "use client"
 
-import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+
+import { LogoutCallback } from "@/entities/users/(post)/util/logout";
 
 import { useFavoriteListHook } from "@/entities/favorite/list/hook/useFavoriteListHook";
 
-import { SrcHttpToHttps } from "@/shared/util/srcHttpToHttps";
-import { ImageError } from "@/shared/util/imgError";
-import { CultureInfoDateFormat } from "@/shared/util/dateFormat";
-
-import { List, FavoriteListBox } from "./_html"
-import { ShowOnGoingInfo } from "@/shared/util/showOnGoingInfo";
 import { FavoriteItem } from "@/entities/favorite/list/ui/FavoriteItem";
 import { FavoriteEmpty } from "@/entities/favorite/list/ui/FavoriteEmpty";
 
+import { toastOpts } from "@/shared/util/toastOps";
+import { useToastHook } from "@/shared/hook/useToastHook";
+
+import { List, FavoriteListBox } from "./_html"
+
 export const FavoriteList = () => {
     
-    const { data, favoriteTotal } = useFavoriteListHook();
+    const { data, favoriteTotal, isUnauthorized, isSuccess } = useFavoriteListHook();
+
+    const { ToastAlert, InitAlert } = useToastHook();
 
     const favorites = useMemo(() => {
         const map = new Map<FAVORITE_ITEM["exhibitionArea"], FAVORITE_ITEM[]>();
@@ -34,8 +37,18 @@ export const FavoriteList = () => {
         return Array.from(map);
     }, [data]);
 
+    useEffect(() => {
+        if(isUnauthorized) {
+            InitAlert(toastOpts["unAuthorized"], () => {
+                LogoutCallback();
+            })
+        }
+    },[isSuccess])
+
     return (
         <>
+            <ToastAlert/>
+
             {
                 favoriteTotal === 0 ?
                 <FavoriteEmpty/>

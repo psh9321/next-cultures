@@ -1,4 +1,5 @@
 import { API_SERVER_CULTURE_INFO_MAP } from '@/entities/culture/map/api/api.server.culture.info.map';
+import { SetCookies } from '@/shared/lib/cookies';
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req : NextRequest) {
@@ -14,14 +15,14 @@ export async function POST(req : NextRequest) {
             ...params
         })
 
-        if(response["resultCode"] !== 200) {
-            return NextResponse.json(response, { status : 200 });
-        }
+        await SetCookies(response.headers);
 
-        return NextResponse.json(response["data"], { status : 200 });
+        const result = await response.json<API_CULTURE_INFO_MAP>();
+
+        return NextResponse.json(result, { status : 200 });
     }
     catch(err) {
         console.log(err)
-        return NextResponse.json({status : 500});
+        return NextResponse.json(err, {status : 500});
     }
 }

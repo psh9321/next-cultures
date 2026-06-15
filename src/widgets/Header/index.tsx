@@ -86,7 +86,8 @@ export const Header = ({ isSearchBox = true } : HEADER) => {
                             <button onClick={() => SetIsUserBox(true)}>
                                 {
                                     // Image
-                                    isLogin ? <Image style={{borderRadius : "100%"}} sizes="100vw" unoptimized loading="eager" width={30} height={30} src={user?.profileImg as string} alt={`${user?.name} 의 프로필 이미지`} /> : <UserRoundKey/>
+                                    isLogin ? 
+                                        <Image style={{borderRadius : "100%"}} sizes="100vw" loading="eager" width={30} height={30} src={user?.profileImg as string} alt={`${user?.name} 의 프로필 이미지`} /> : <UserRoundKey/>
                                 }
                             </button>
                             {

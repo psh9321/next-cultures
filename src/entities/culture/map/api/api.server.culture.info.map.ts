@@ -9,11 +9,9 @@ export async function API_SERVER_CULTURE_INFO_MAP(querys : API_SERVER_CULTURE_IN
         }
       })
 
-      if(!api.ok) throw api.statusText;
+      if(!api.ok) throw api;
 
-      const result = await api.json<API_SERVER_CULTURE_INFO_MAP>();
-
-      return result
+      return api;
 
     }
     catch(err) { 

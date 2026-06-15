@@ -1,5 +1,5 @@
 import ky from "ky"
-import { GetToken } from "../lib/token"
+import { GetCookies } from "../lib/cookies"
 
 export const BACKEND_API = ky.create({
     prefix : process.env.NEXT_PUBLIC_API_URL,
@@ -12,7 +12,7 @@ export const BACKEND_API = ky.create({
         beforeRequest : [
             async ({request}) => {
 
-                const token = await GetToken();
+                const token = await GetCookies();
 
                 if(token) {
                     request.headers.set("a-t",token["a"])

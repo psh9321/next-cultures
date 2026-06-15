@@ -2,7 +2,7 @@
 
 import { styled } from 'styled-components'
 
-export const TitleWrapper = styled.section`
+export const TitleBox = styled.section`
     display : flex;
     flex-direction : column;
     justify-content : space-between;

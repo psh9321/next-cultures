@@ -1,6 +1,6 @@
 "use client"
 
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 
 import { useQuery } from "@tanstack/react-query"
 
@@ -8,18 +8,25 @@ import { decode } from "he";
 
 import { SrcHttpToHttps } from "@/shared/util/srcHttpToHttps";
 import { CultureInfoDateFormat } from "@/shared/util/dateFormat";
-import { ShowOnGoingInfo } from "../../../../shared/util/showOnGoingInfo";
+import { ShowOnGoingInfo } from "@/shared/util/showOnGoingInfo";
+
 import { API_CLIENT_CULTURE_INFO_DETAIL } from "../api/api.client.culture.detail";
 
 export const useCultureInfoDetailHook = () => {
 
     const { seq } = useParams<{seq : string}>();
 
+    const pathname = usePathname();
+
     const queryKey = ["cultureInfo", "detail", seq];
 
     const { data } = useQuery({
         queryKey,
-        queryFn : () => API_CLIENT_CULTURE_INFO_DETAIL(seq) 
+        queryFn : async () => {
+            const result = await API_CLIENT_CULTURE_INFO_DETAIL(seq);
+
+            return result
+        } 
     }) as { data : CULTURE_DETAIL_ITEM }
 
     const date = `${CultureInfoDateFormat(data["startDate"])} ~ ${CultureInfoDateFormat(data["endDate"])}`;
@@ -56,8 +63,8 @@ export const useCultureInfoDetailHook = () => {
                 description: `장소 : ${place}\n날짜 : ${date}\n${data?.["contents1"]??""}`,
                 imageUrl : imgSrc,
                 link : {
-                    mobileWebUrl : window.location.href,
-                    webUrl : window.location.href
+                    mobileWebUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN as string}/${pathname}`,
+                    webUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN as string}/${pathname}`
                 }
             }
         }

@@ -1,6 +1,6 @@
 'use client'
 
-import { ScanSearch, Route, Scroll } from 'lucide-react';
+import { ScanSearch, Route, Scroll, TicketCheck } from 'lucide-react';
 
 import { useLoadingStore } from "@/shared/store/useLoadingStore";
 
@@ -24,6 +24,12 @@ export const LoadingView = () => {
         case "search" : return (
             <LoadingIcon>
                 <ScanSearch/>검색중
+            </LoadingIcon>
+        )
+
+        case "favorite" : return (
+            <LoadingIcon style={{ width : "310px" }}>
+                <TicketCheck/>좋아요 한 정보 불러오는 중
             </LoadingIcon>
         )
     

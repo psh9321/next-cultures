@@ -2,7 +2,7 @@
 
 import { BACKEND_API } from "@/shared/api/server.instance";
 
-import { SetToken } from "@/shared/lib/token";
+import { SetCookies } from "@/shared/lib/cookies";
 
 export async function API_SERVER_POST_USERS(param : API_SERVER_POST_USERS_PARAMS) {
 
@@ -13,7 +13,7 @@ export async function API_SERVER_POST_USERS(param : API_SERVER_POST_USERS_PARAMS
 
         if(!api.ok) return null
 
-        await SetToken(api.headers);
+        await SetCookies(api.headers);
         
         const result = await api.json<API_SERVER_POST_USERS>();
 
