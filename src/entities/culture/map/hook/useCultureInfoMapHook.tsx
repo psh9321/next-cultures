@@ -31,7 +31,7 @@ export const useCultureInfoMapHook = (coordinates : COORDINATES | null) => {
     });
 
     return { 
-        list : data?.pages.flatMap(el => el?.list), 
+        list : data?.pages.flatMap(el => el?.list ?? []), 
         isLoading, 
         isFetching, 
         isError, 

@@ -224,13 +224,10 @@ export const CultureInfoMap = ({
             longitude: number;
         }>();
 
-        list.forEach((item) => {
-            const itemWithFallback = item as CULTURE_ITEM & {
-                gpsx?: string;
-                gpsy?: string;
-            };
-            const latitude = Number(itemWithFallback.gpsY ?? itemWithFallback.gpsy);
-            const longitude = Number(itemWithFallback.gpsX ?? itemWithFallback.gpsx);
+        list?.forEach((item) => {
+            
+            const latitude = Number(item?.gpsY);
+            const longitude = Number(item?.gpsX);
 
             if(!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
 
