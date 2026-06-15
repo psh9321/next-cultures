@@ -1,26 +1,12 @@
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
-
-import { QueryClient } from "@tanstack/react-query";
 
 import "@/styles/reset.css";
 import "@/styles/font.css";
 import "@/styles/common.css";
 
-import { StyledComponentsProvider } from "@/provider/StyledComponentsProvider";
-import { QueryProvider } from "@/provider/QueryProvider";
-import { SessionProvider } from "@/provider/SessionProvider";
-
-import { KakaoShareInitializer } from "@/script/KakaoShareInitializer";
-import { LoadingView } from "@/widgets/LoadingView";
-
-import { authOptions } from "@/auth";
-import { KakaoMapInitializer } from "@/script/KakaoMapInitializer";
-import { Header } from "@/widgets/Header";
-
 export const metadata : Metadata = {
 //   verification : {
-//     google : "YNRCvA1ZisdnrnUT_ide10_p6OFQtGi7Ktcdg1sSeXQ"
+//     google : ""
 //   },
   metadataBase: new URL("https://exhibition.psh9321.cloud"),
   creator : "프론트엔드 개발자 박수현",
@@ -49,24 +35,10 @@ export const metadata : Metadata = {
 
 const RootLayout = async ({ children }: LAYOUT_CHILD) => {
     
-    const session = await getServerSession(authOptions);
     return (
         <html lang="ko">
             <body suppressHydrationWarning>
-                <KakaoMapInitializer/>
-                <KakaoShareInitializer/>
-                
-                <StyledComponentsProvider>
-                    <SessionProvider session={session}>
-                        <QueryProvider>
-                            <Header/>
-                            {children}
-                            <LoadingView/>
-
-                            <div id="portal-root"></div>
-                        </QueryProvider>
-                    </SessionProvider>
-                </StyledComponentsProvider>
+                {children}
             </body>
         </html>
     );
