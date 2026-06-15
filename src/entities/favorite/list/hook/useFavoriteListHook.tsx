@@ -15,7 +15,7 @@ export const useFavoriteListHook = () => {
 
             return result;
         },
-        enabled : isLogin
+        enabled : isLogin,
     });
 
     return { 

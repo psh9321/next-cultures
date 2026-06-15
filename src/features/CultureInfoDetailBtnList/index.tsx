@@ -1,11 +1,11 @@
 "use client"
 
-import { BtnCultureInfoShare } from "./ui/BtnCultureInfoShare"
-import { BtnCultureInfoLink } from "./ui/BtnCultureInfoLink"
-import { BtnToggleFavorite } from "./ui/BtnToggleFavorite"
+import { BtnCultureInfoShare } from "./components/BtnCultureInfoShare"
+import { BtnCultureInfoLink } from "./components/BtnCultureInfoLink"
+import { BtnToggleFavorite } from "./components/BtnToggleFavorite"
 
 import { BtnList } from "./_html"
-import { BtnClose } from "./ui/BtnClose"
+import { BtnClose } from "./components/BtnClose"
 
 export const CultureInfoDetailBtnList = () => {
 

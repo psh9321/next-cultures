@@ -22,7 +22,7 @@ export const useFavoriteToggleHook = (seq : string | number) => {
 
             queryClient.setQueryData(queryKey, newData);
 
-            queryClient.invalidateQueries({queryKey : ["favorite", "list"]})
+            queryClient.invalidateQueries({queryKey : ["favorite", "list"], refetchType : "all"})
 
             return data
         },
