@@ -15,8 +15,8 @@ export const BACKEND_API = ky.create({
                 const token = await GetCookies();
 
                 if(token) {
-                    request.headers.set("a-t",token["a"])
-                    request.headers.set("r-t",token["r"])
+                    request.headers.set(process.env.ACCESS_TOKEN_KEY as string,token["a"])
+                    request.headers.set(process.env.REFRESH_TOKEN_KEY as string,token["r"])
                 }
 
                 return request

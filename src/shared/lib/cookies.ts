@@ -2,13 +2,15 @@
 
 import { cookies } from "next/headers";
 
+import { DataDecrypt, DataEncrypt } from "./crpyto"
+
 export async function SetCookies(headers : Headers) {
-    const a = headers.get("a-t");
-    const r = headers.get("r-t");
+    const a = headers.get(process.env.ACCESS_TOKEN_KEY as string);
+    const r = headers.get(process.env.REFRESH_TOKEN_KEY as string);
 
-    if(!a || !r) return 
+    if(!a || !r) return
 
-    const token = encodeURIComponent(JSON.stringify({a, r}));
+    const token = DataEncrypt({a, r});
 
     const cookie = await cookies();
 
@@ -16,31 +18,22 @@ export async function SetCookies(headers : Headers) {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
+        path: "/"
     })
 }
 
-export async function GetCookies() : Promise<{a : string, r : string} | null> {
-    try {
-        const cookie = await cookies();
-
-        const token = cookie.get(process.env.COOKIE_STORE_NAME as string)?.["value"];
-
-        if(!token) return null
-
-        const result = JSON.parse(decodeURIComponent(token));
-
-        return result??null
-    }
-    catch(err) {
-        console.log("getCookie error",err);
-        return null
-    }
-}
-
-export async function DeleteCookies() : Promise<void> {
+export async function GetCookies() {
     const cookie = await cookies();
 
+    const token = cookie.get(process.env.COOKIE_STORE_NAME as string);
+
+    if(!token || !token["value"]) return null
+
+    return DataDecrypt(token["value"])??null
+}
+
+export async function DeleteCookies() {
+    const cookie = await cookies();
+    
     cookie.delete(process.env.COOKIE_STORE_NAME as string);
 }
