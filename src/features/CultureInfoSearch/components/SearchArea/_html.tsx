@@ -36,7 +36,7 @@ export const AreaList = styled.ul`
     border-radius : 10px;
     overflow : hidden;
     box-shadow : 5px 5px 5px rgba(0,0,0,0.8);
-    z-index : 3;
+    z-index : 6;
     
     li {
         button {

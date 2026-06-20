@@ -73,7 +73,6 @@ export const HeaderLogo = styled.h1`
     color : #7e4ed5;
     font-size : 1.3rem;
     font-family : logo;
-    cursor : pointer;
 `
 
 export const HeaderBtnList = styled.ul`
