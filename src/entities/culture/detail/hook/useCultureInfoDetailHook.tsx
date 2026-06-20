@@ -37,7 +37,7 @@ export const useCultureInfoDetailHook = () => {
 
     const place = data?.["place"];
 
-    const showOnGoingInfo = new ShowOnGoingInfo(data["startDate"], data["endDate"])
+    const showOnGoingInfo = new ShowOnGoingInfo(data?.["startDate"], data?.["endDate"])
     
     return { 
         seq,
