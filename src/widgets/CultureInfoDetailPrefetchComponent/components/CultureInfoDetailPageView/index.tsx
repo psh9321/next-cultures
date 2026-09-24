@@ -39,9 +39,9 @@ export const CultureInfoDetailPageView = () => {
                             <li>
                                 <button onClick={() => SetCurrentTab("info")} className={`${currentTab === "info" && "active"}`}>정보</button>
                             </li>
-                            <li>
+                            {/* <li>
                                 <button onClick={() => SetCurrentTab("review")} className={`${currentTab === "review" && "active"}`} >후기</button>
-                            </li>
+                            </li> */}
                         </TabList>
                         <TabContents>
                             <h2 className="hidden">탭 박스</h2>
