@@ -1,5 +1,7 @@
 "use client"
 
+import { useMemo } from "react";
+
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { API_CLIENT_CULTURE_INFO_MAP } from "../api/api.client.culture.info.map";
 
@@ -30,8 +32,10 @@ export const useCultureInfoMapHook = (coordinates : COORDINATES | null) => {
         },
     });
 
+    
+
     return { 
-        list : data?.pages.flatMap(el => el?.list ?? []), 
+        list : useMemo(() => data?.pages.flatMap(el => el?.list ?? []), [data?.pages]), 
         isLoading, 
         isFetching, 
         isError, 

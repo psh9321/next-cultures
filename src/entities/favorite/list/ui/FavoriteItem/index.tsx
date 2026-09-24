@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { memo } from "react";
+
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useLoadingStore } from "@/shared/store/useLoadingStore";
@@ -15,7 +17,7 @@ import { BodyScrollLock } from "@/shared/util/bodyScrollLock";
 
 import { ImgBox, InfoBox, Item } from "./_html"
 
-export const FavoriteItem = ({ item } :  { item : FAVORITE_ITEM }) => {
+export const FavoriteItem = memo(({ item } :  { item : FAVORITE_ITEM }) => {
 
     const queryClient = useQueryClient();
 
@@ -58,7 +60,7 @@ export const FavoriteItem = ({ item } :  { item : FAVORITE_ITEM }) => {
                         fill
                         unoptimized
                         sizes={"100vw"}
-                        loading="eager"
+                        loading="lazy"
                         src={SrcHttpToHttps(item?.["exhibitionImg"])}
                         alt={` 썸네일 이미지`}
                         onError={ImageError}
@@ -72,4 +74,4 @@ export const FavoriteItem = ({ item } :  { item : FAVORITE_ITEM }) => {
             </button>
         </Item>
     )
-}
+})

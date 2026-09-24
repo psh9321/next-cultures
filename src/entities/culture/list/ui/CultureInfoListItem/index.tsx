@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { memo } from "react";
+
 import { useQueryClient } from "@tanstack/react-query";
 
 import { decode } from "he";
@@ -11,12 +13,12 @@ import { SrcHttpToHttps } from "@/shared/util/srcHttpToHttps";
 import { ImageError } from "@/shared/util/imgError";
 import { CultureInfoDateFormat } from "@/shared/util/dateFormat";
 import { BodyScrollLock } from "@/shared/util/bodyScrollLock";
-
-import { Li, BtnNav, ImgBox, CultureInfoBox } from "./_html";
 import { useLoadingStore } from "@/shared/store/useLoadingStore";
 import { ShowOnGoingInfo } from "@/shared/util/showOnGoingInfo";
 
-export const CultureInfoListItem = ({ item } : { item: CULTURE_ITEM }) => {
+import { Li, BtnNav, ImgBox, CultureInfoBox } from "./_html";
+
+export const CultureInfoListItem = memo(({ item } : { item: CULTURE_ITEM }) => {
 
     const queryClient = useQueryClient();
 
@@ -63,7 +65,7 @@ export const CultureInfoListItem = ({ item } : { item: CULTURE_ITEM }) => {
                         fill
                         unoptimized
                         sizes={"100vw"}
-                        loading="eager"
+                        loading="lazy"
                         src={SrcHttpToHttps(item["thumbnail"])}
                         alt={`${decode(item["title"])} 썸네일 이미지
                         `}
@@ -83,4 +85,4 @@ export const CultureInfoListItem = ({ item } : { item: CULTURE_ITEM }) => {
             </BtnNav>
         </Li>
     )
-}
+})

@@ -7,8 +7,6 @@ import { LogoutCallback } from "@/entities/users/(post)/util/logout"
 
 import { useSessionHook } from "@/entities/users/(post)/hook/useSessionHook"
 
-import { GoogleLogo, KakaoLogo, NaverLogo } from "@/shared/svg/SSOLogo"
-
 import { AfterLoginBox, BtnLogout, ImgBox, UserName, Container } from "./_html"
 
 export const AfterLogin = () => {

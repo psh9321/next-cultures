@@ -9,7 +9,6 @@ import { Menu, Search, UserRoundKey } from "lucide-react"
 
 import useMediaQuery from "@parksuhyun9321/use-media-query"
 
-import { CultureInfoSearch } from "@/features/CultureInfoSearch"
 import { NavBox } from "@/features/NavBox"
 import { UserBox } from "@/features/UserBox"
 

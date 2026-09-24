@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
           profileImg : userInfo.profileImg,
           createDate : DateFormat(userInfo.createdAt as Date,true),
         } satisfies User;
-      }
+      },
     })
   ],
   callbacks: {
