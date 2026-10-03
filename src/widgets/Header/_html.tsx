@@ -149,4 +149,5 @@ export const NaviContainer = styled.div`
     top : 50%;
     left : 50%;
     transform : translate(-50%, -50%);
+    min-width : 500px;
 `
