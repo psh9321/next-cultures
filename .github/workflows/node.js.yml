@@ -70,8 +70,8 @@ jobs:
           sudo -n git rev-parse --is-inside-work-tree
           [[ "$(sudo -n git branch --show-current)" == master ]]
           sudo -n env GIT_TERMINAL_PROMPT=0 git pull --ff-only origin master
-          pnpm install --frozen-lockfile
-          pnpm build
+          sudo -n env "PATH=$PATH" pnpm install --frozen-lockfile
+          sudo -n env "PATH=$PATH" pnpm build
           pnpm reload --env production --update-env
           REMOTE
 
