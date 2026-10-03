@@ -78,15 +78,14 @@ jobs:
 
   notify:
     needs: [test, deploy]
-    if: ${{ always() }}
+    if: ${{ always() && needs.deploy.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Discord에 CI/CD 결과 알림
+      - name: Discord에 배포 실패 알림
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           TEST_RESULT: ${{ needs.test.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
-          EVENT_NAME: ${{ github.event_name }}
           REF_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           set -euo pipefail
@@ -99,19 +98,8 @@ jobs:
             exit 1
           fi
 
-          if [[ "$TEST_RESULT" == failure || "$DEPLOY_RESULT" == failure ]]; then
-            title='❌ CI/CD 실패'
-            color=15158332
-          elif [[ "$TEST_RESULT" == cancelled || "$DEPLOY_RESULT" == cancelled ]]; then
-            title='⏹️ CI/CD 취소'
-            color=9807270
-          elif [[ "$TEST_RESULT" == success && ( "$EVENT_NAME" != push || "$DEPLOY_RESULT" == success ) ]]; then
-            title='✅ CI/CD 성공'
-            color=3066993
-          else
-            title='⚠️ CI/CD 미완료'
-            color=16776960
-          fi
+          title='❌ 배포 실패'
+          color=15158332
 
           run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           payload=$(jq -n \
@@ -123,7 +111,8 @@ jobs:
             --arg commit "${GITHUB_SHA:0:7}" \
             --arg test "$TEST_RESULT" \
             --arg deploy "$DEPLOY_RESULT" \
-            '{allowed_mentions: {parse: []}, embeds: [{title: $title, color: $color, url: $url, fields: [
+            '{allowed_mentions: {parse: []}, embeds: [{title: $title, description: "EC2 배포 중 오류가 발생했습니다. 상세 에러는 아래 실행 로그에서 확인하세요.", color: $color, url: $url, fields: [
+              {name: "실행 로그", value: $url},
               {name: "저장소", value: $repository},
               {name: "브랜치", value: $branch, inline: true},
               {name: "커밋", value: $commit, inline: true},
@@ -134,4 +123,4 @@ jobs:
             --connect-timeout 10 --max-time 30 \
             -H 'Content-Type: application/json' \
             --data "$payload" "$DISCORD_WEBHOOK_URL"
-          echo 'Discord CI/CD 결과 알림 전송 완료'
+          echo 'Discord 배포 실패 알림 전송 완료'
