@@ -12,7 +12,7 @@ export const metadata : Metadata = {
   creator : "프론트엔드 개발자 박수현",
   publisher : "프론트엔드 개발자 박수현",
   title: {
-    default: "Discover Exhibitions",
+    default: "Discover Cultures",
     template: "%s | 문화 정보 플랫폼",
   },
   description: "전국 문화 정보를 한눈에 확인하세요",

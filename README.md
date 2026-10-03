@@ -44,3 +44,18 @@ https://exhibition.psh9321.cloud/
 ### 로딩 상태 관리
  - Zustand를 활용한 전역 로딩 상태 관리
  - 목록 조회, 검색, 상세 페이지 진입 시 사용자 피드백 제공
+
+## 기능 테스트
+
+### 실행 커멘트
+ - 실행 : pnpm test
+ - 감시 모드 : pnpm test-watch
+
+### 테스트 항목
+ - `Auth.test.tsx`: 소셜 로그인 팝업 URL, 세션 상태 전환, 쿠키 삭제 및 로그아웃 검증
+ - `CultureList.test.tsx`: 실제 React Query로 최초 조회, 페이지 누적, 마지막 페이지 종료, 검색 조건 변경, 조회 오류 및 목록 UI의 스크롤 추가 조회 조건과 빈 목록 검증
+ - `CultureMap.test.tsx`: 현 지도 영역 검색, 확대·축소 제한, 좌표별 마커 목록 및 선택한 전시의 상세페이지 이동 검증
+ - `Detail.test.tsx`: 서버 prefetch 캐시가 있는 상세페이지의 조회 및 정보 갱신, 로그인 상태의 카카오톡 공유 데이터·링크 검증
+ - `Favorite.test.tsx`: 좋아요 등록·해제 UI, 상세 캐시 갱신, 목록 무효화, 비로그인·세션 만료 검증
+ - `Metadata.test.ts`: 전시별 제목·설명·canonical·OG·Twitter 메타데이터 및 조회 실패 검증
+ - `Search.test.tsx`: 검색어 디바운스, 카테고리·지역 검색, 필터 조합 및 해제 검증 

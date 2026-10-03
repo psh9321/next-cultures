@@ -63,8 +63,8 @@ export const useCultureInfoDetailHook = () => {
                 description: `장소 : ${place}\n날짜 : ${date}\n${data?.["contents1"]??""}`,
                 imageUrl : imgSrc,
                 link : {
-                    mobileWebUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN as string}/${pathname}`,
-                    webUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN as string}/${pathname}`
+                    mobileWebUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN?.replace(/\/+$/, "")}${pathname}`,
+                    webUrl : `${process.env.NEXT_PUBLIC_SERVICE_DOMAIN?.replace(/\/+$/, "")}${pathname}`
                 }
             }
         }
