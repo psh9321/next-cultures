@@ -70,9 +70,10 @@ jobs:
           sudo -n git rev-parse --is-inside-work-tree
           [[ "$(sudo -n git branch --show-current)" == master ]]
           sudo -n env GIT_TERMINAL_PROMPT=0 git pull --ff-only origin master
-          sudo -n env "PATH=$PATH" pnpm install --frozen-lockfile
-          sudo -n env "PATH=$PATH" pnpm build
-          pnpm reload --env production --update-env
+          sudo -n env "PATH=$PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm --version
+          sudo -n env "PATH=$PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm install --frozen-lockfile
+          sudo -n env "PATH=$PATH" COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm build
+          COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm reload --env production --update-env
           REMOTE
 
   notify:
@@ -90,8 +91,12 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -z "$DISCORD_WEBHOOK_URL" ]]; then
-            echo '::warning::DISCORD_WEBHOOK_URL Secret을 설정하면 Discord 알림을 받을 수 있습니다.'
-            exit 0
+            echo '::error::GitHub 저장소 Settings → Secrets and variables → Actions에 DISCORD_WEBHOOK_URL Secret을 등록해야 합니다.'
+            exit 1
+          fi
+          if [[ "$DISCORD_WEBHOOK_URL" == */github || "$DISCORD_WEBHOOK_URL" == */github/ ]]; then
+            echo '::error::DISCORD_WEBHOOK_URL에는 /github를 붙이지 않은 Discord 원본 웹훅 URL을 등록해야 합니다.'
+            exit 1
           fi
 
           if [[ "$TEST_RESULT" == failure || "$DEPLOY_RESULT" == failure ]]; then
@@ -129,3 +134,4 @@ jobs:
             --connect-timeout 10 --max-time 30 \
             -H 'Content-Type: application/json' \
             --data "$payload" "$DISCORD_WEBHOOK_URL"
+          echo 'Discord CI/CD 결과 알림 전송 완료'

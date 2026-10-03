@@ -2,6 +2,7 @@
   "name": "next-project03",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.2.0",
   "scripts": {
     "dev": "next dev -p 3000",
     "prod": "next start",
