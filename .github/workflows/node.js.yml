@@ -45,8 +45,6 @@ jobs:
       EC2_USER: ${{ secrets.EC2_USER }}
       EC2_DEPLOY_PATH: ${{ secrets.EC2_DEPLOY_PATH }}
     steps:
-      - name: 소스 코드 체크아웃
-        uses: actions/checkout@v4
       - name: SSH 설정
         env:
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
@@ -62,26 +60,16 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -T 10 -H "$EC2_HOST" > ~/.ssh/known_hosts
           test -s ~/.ssh/known_hosts
-      - name: EC2에 코드 배포
-        run: |
-          set -euo pipefail
-          printf -v remote_path '%q' "$EC2_DEPLOY_PATH"
-          ssh -o BatchMode=yes "$EC2_USER@$EC2_HOST" "mkdir -p -- $remote_path"
-          rsync -az --delete -e 'ssh -o BatchMode=yes' \
-            --exclude='.git/' \
-            --exclude='.github/' \
-            --exclude='.env*' \
-            --exclude='node_modules/' \
-            --exclude='.next/' \
-            --exclude='.pnpm-store/' \
-            ./ "$EC2_USER@$EC2_HOST:$remote_path/"
-      - name: EC2에서 빌드 및 재시작
+      - name: EC2에서 코드 업데이트, 빌드 및 재시작
         run: |
           set -euo pipefail
           printf -v remote_path '%q' "$EC2_DEPLOY_PATH"
           ssh -o BatchMode=yes "$EC2_USER@$EC2_HOST" "bash -l -s -- $remote_path" <<'REMOTE'
           set -euo pipefail
           cd -- "$1"
+          sudo -n git rev-parse --is-inside-work-tree
+          [[ "$(sudo -n git branch --show-current)" == master ]]
+          sudo -n env GIT_TERMINAL_PROMPT=0 git pull --ff-only origin master
           pnpm install --frozen-lockfile
           pnpm build
           pnpm reload --env production --update-env
